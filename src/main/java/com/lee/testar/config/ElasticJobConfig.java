@@ -62,6 +62,5 @@ public class ElasticJobConfig {
         // 定义Lite作业根配置
         LiteJobConfiguration simpleJobRootConfig = LiteJobConfiguration.newBuilder(simpleJobConfig).overwrite(true).build();
         return simpleJobRootConfig;
-
     }
 }
