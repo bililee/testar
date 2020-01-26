@@ -1,12 +1,15 @@
 package com.lee.IMnetty.server.servers;
 
 import com.lee.IMnetty.server.hanldlers.FirstTestHandler;
+import com.lee.IMnetty.server.hanldlers.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+
+import java.net.Socket;
 
 /**
  * NormalServer
@@ -36,6 +39,7 @@ public class NormalServer {
                     protected void initChannel(SocketChannel SocketChannel) throws Exception {
                         System.out.println("come into initchannel");
                         SocketChannel.pipeline().addLast(new FirstTestHandler());
+                        SocketChannel.pipeline().addLast(new ServerHandler());
                     }
                 });
         bootstrap.bind(port);

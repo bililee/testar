@@ -1,5 +1,6 @@
 package com.lee.IMnetty.client.clients;
 
+import com.lee.IMnetty.client.handlers.ClientHandler;
 import com.lee.IMnetty.client.handlers.FirstTestHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -32,6 +33,7 @@ public class NormalClient {
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         System.out.println("客户端端正式启动");
                         socketChannel.pipeline().addLast(new FirstTestHandler());
+                        socketChannel.pipeline().addLast(new ClientHandler());
                     }
                 });
         bootstrap.connect("127.0.0.1", 9896).addListener(future -> {
