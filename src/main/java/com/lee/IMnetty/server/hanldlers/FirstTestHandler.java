@@ -34,6 +34,7 @@ public class FirstTestHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        ctx.pipeline();
         ByteBuf msgBuf = (ByteBuf) msg;
         System.out.println("服务端接收到消息:" + msgBuf.toString(Charset.forName("UTF-8")));
         super.channelRead(ctx, msg);

@@ -12,7 +12,7 @@ public interface Serializer {
      * 序列化的算法
      * @return
      */
-    byte getSerializerAlgorithm();
+    byte getSerializerAlogrithm();
 
     /**
      * 序列化对象

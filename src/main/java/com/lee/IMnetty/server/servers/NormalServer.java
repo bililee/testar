@@ -38,7 +38,7 @@ public class NormalServer {
                     @Override
                     protected void initChannel(SocketChannel SocketChannel) throws Exception {
                         System.out.println("come into initchannel");
-                        SocketChannel.pipeline().addLast(new FirstTestHandler());
+//                        SocketChannel.pipeline().addLast(new FirstTestHandler());
                         SocketChannel.pipeline().addLast(new ServerHandler());
                     }
                 });

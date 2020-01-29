@@ -4,6 +4,13 @@ import com.lee.IMnetty.serializer.JSONSerializer;
 import com.lee.IMnetty.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import org.jboss.logging.MessageLogger;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+import static com.lee.IMnetty.packet.Command.*;
 
 /**
  * PacketCodeC
@@ -13,6 +20,25 @@ import io.netty.buffer.ByteBufAllocator;
  */
 public class PacketCodeC {
     private static int MAGIC_NUMBER = 0x123;
+
+    private PacketCodeC packetCodeC = null;
+
+    private static final Map<Byte, Class<? extends Packet>> packetTypeMap;
+
+    private static final Map<Byte, Serializer> serializerMap;
+
+    static {
+        packetTypeMap = new HashMap<>();
+        packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
+
+        serializerMap = new HashMap<>();
+        Serializer serializer = new JSONSerializer();
+        serializerMap.put(serializer.getSerializerAlogrithm(), serializer);
+    }
+
+
+
+
 
     /**
      * 协议组装的方式
@@ -29,7 +55,7 @@ public class PacketCodeC {
          */
         byteBuf.writeInt(MAGIC_NUMBER);
         byteBuf.writeByte(packet.getVersion());
-        byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlgorithm());
+        byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlogrithm());
         byteBuf.writeByte(packet.getCommand());
         byteBuf.writeInt(bytes.length);
         byteBuf.writeBytes(bytes);
@@ -67,11 +93,19 @@ public class PacketCodeC {
     }
 
     public Class<? extends Packet> getRequestType(Byte command) {
-        byte oneCommand = 1;
-        if (command.equals(oneCommand)) {
+        if (command.equals(LOGIN_REQUEST)) {
             return LoginRequestPacket.class;
         }
-        return LoginRequestPacket.class;
+        if (command.equals(LOGIN_RESPONSE)) {
+            return LoginResponsePacket.class;
+        }
+        if (command.equals(MESSAGE_REQUEST)) {
+            return MessageRequestPacket.class;
+        }
+        if (command.equals(MESSAGE_RESPONSE)) {
+            return MessageResponsePacket.class;
+        }
+        return null;
     }
 
     public Serializer getSerializer(byte alogrithm) {
