@@ -16,6 +16,11 @@ import lombok.Setter;
 @Setter
 public class TinySession {
 
+    public TinySession(String userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
+    }
+
     /**
      * 用户的id
      */

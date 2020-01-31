@@ -105,6 +105,12 @@ public class PacketCodeC {
         if (command.equals(MESSAGE_RESPONSE)) {
             return MessageResponsePacket.class;
         }
+        if (command.equals(CREATE_GROUP)) {
+            return CreateGroupPacket.class;
+        }
+        if (command.equals(CREATE_GROUP_RESPONSE)) {
+            return CreateGroupResponsePacket.class;
+        }
         return null;
     }
 

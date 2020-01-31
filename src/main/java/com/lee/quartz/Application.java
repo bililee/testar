@@ -8,4 +8,15 @@ package com.lee.quartz;
  */
 
 public class Application {
+
+    /**
+     * 普通的尝试的入口
+     * @param args
+     */
+    public static void main(String[] args) {
+        System.out.println("start test");
+        new Thread(() -> {
+            System.out.println("thread start!");
+        }).start();
+    }
 }

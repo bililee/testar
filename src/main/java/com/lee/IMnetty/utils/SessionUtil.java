@@ -2,7 +2,6 @@ package com.lee.IMnetty.utils;
 
 import io.netty.channel.Channel;
 
-import javax.websocket.Session;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,6 +22,8 @@ public class SessionUtil {
      */
     public static void bindSession(TinySession session, Channel channel) {
         userIdChannelMap.put(session.getUserId(), channel);
+        channel.attr(Attributes.SESSION).set(session);
+        System.out.println("成功看下" + channel.hasAttr(Attributes.SESSION));
     }
 
     /**
@@ -39,6 +40,7 @@ public class SessionUtil {
      * @return
      */
     public static boolean hasLogin(Channel channel) {
+        System.out.println("看下" + channel.hasAttr(Attributes.SESSION));
         return channel.hasAttr(Attributes.SESSION);
     }
 

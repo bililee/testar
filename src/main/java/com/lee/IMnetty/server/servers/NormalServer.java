@@ -1,6 +1,7 @@
 package com.lee.IMnetty.server.servers;
 
 import com.lee.IMnetty.server.hanldlers.FirstTestHandler;
+import com.lee.IMnetty.server.hanldlers.MessageHandler;
 import com.lee.IMnetty.server.hanldlers.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -37,9 +38,10 @@ public class NormalServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel SocketChannel) throws Exception {
-                        System.out.println("come into initchannel");
+//                        System.out.println("come into initchannel");
 //                        SocketChannel.pipeline().addLast(new FirstTestHandler());
                         SocketChannel.pipeline().addLast(new ServerHandler());
+                        SocketChannel.pipeline().addLast(new MessageHandler());
                     }
                 });
         bootstrap.bind(port);
