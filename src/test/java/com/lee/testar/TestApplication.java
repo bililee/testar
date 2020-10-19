@@ -1,8 +1,6 @@
 package com.lee.testar;
 
-import com.lee.testar.Application;
 import com.lee.testar.service.TestUnitService;
-import com.lee.testar.servicxe.ComUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class TestApplication {
 
-    @Autowired
-    ComUtil comUtil;
+
 
     @Autowired
     TestUnitService testUnitService;
@@ -35,7 +32,7 @@ public class TestApplication {
     @Test
     public void test() throws Exception {
         System.out.println("start");
-        String word = comUtil.write();
+        String word = "123";
         System.out.println(word);
     }
 }

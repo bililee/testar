@@ -1,8 +1,11 @@
 package com.lee.testar.controller;
 
+import com.lee.testar.config.myannotition.Master;
+import com.lee.testar.config.myannotition.Slave;
+import com.lee.testar.config.mysql.DBContextHolder;
+import com.lee.testar.mapper.TidMapper;
+import com.lee.testar.service.TestService;
 import com.lee.testar.service.ZookeeperService;
-import com.lee.testar.servicxe.ComUtil;
-import com.lee.testar.utils.FirstAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,13 +28,7 @@ public class HelloworldController {
     private ZookeeperService zookeeperService;
 
     @Autowired
-    private ComUtil comUtil;
-
-    @ResponseBody
-    @RequestMapping("/helloworld/sayhello")
-    public String hello() {
-        return comUtil.write();
-    }
+    private TestService testService;
 
     /**
      * 获取zookeeper的后台管理页面
@@ -50,4 +47,30 @@ public class HelloworldController {
     ) {
         return zookeeperService.getOnePath(namespace);
     }
+
+
+    @Autowired
+    private TidMapper tidMapper;
+
+    @RequestMapping("hello/get")
+    @ResponseBody
+    @Slave
+    public Object getZookeeper1(
+            @RequestParam(name = "id", defaultValue = "1")  Integer id
+    ) {
+        return tidMapper.selectByid(id);
+    }
+
+    @RequestMapping("hello/get2")
+    @ResponseBody
+    public Object getZookeeper2(
+            @RequestParam(name = "id", defaultValue = "1")  Integer id
+    ) {
+        Object res1 = DBContextHolder.get();
+        testService.sayTest();
+        Object res = DBContextHolder.get();
+        return tidMapper.selectByid(id);
+    }
+
+
 }

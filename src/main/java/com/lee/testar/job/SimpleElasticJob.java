@@ -19,7 +19,7 @@ public class SimpleElasticJob implements SimpleJob {
 
         Long id = Thread.currentThread().getId();
         String sharding = shardingContext.getShardingParameter().toString();
-        logger.info("I get : {}", sharding);
-        logger.info("end");
+//        logger.info("I get : {}", sharding);
+//        logger.info("end");
     }
 }

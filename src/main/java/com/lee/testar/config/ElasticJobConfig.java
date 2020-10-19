@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ElasticJobConfig {
 
-    private final String cron = "*/5 * * * * ?";
+    private final String cron = "* */30 * * * ?";
 
     private final int shardingTotalCount = 2;
 

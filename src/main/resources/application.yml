@@ -1,0 +1,52 @@
+server:
+  port: 8081
+
+spring:
+#  开始弄下sharding-jdbc
+  datasource:
+    master:
+      username: root
+      password: 961461829
+      #url: jdbc:mysql://127.0.0.1:3306/tests?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UT&autoReconnect=true
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/tests?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&autoReconnect=true
+      driver: com.mysql.jdbc.Driver
+      #    validationQuery: SELECT 1
+      #    testWhileIdle: true
+      #    timeBetweenEvictionRunsMillis: 28000
+    slave:
+      username: root
+      password: 961461829
+      #url: jdbc:mysql://127.0.0.1:3306/tests?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UT&autoReconnect=true
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/tests?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&autoReconnect=true
+      driver-class-name: com.mysql.jdbc.Driver
+
+
+sharding-jdbc:
+  data-sources:
+    ds-master:
+      driver: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/tests?useSSL=false  #主库
+      username: root
+      password: 961461829
+    ds-slave-0:
+      driver: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/tests?useSSL=false  #从库
+      username: read
+      password: read
+  master-slave-rule:
+    name: ds_ms
+    master-data-source-name: ds-master
+    slave-data-source-names: ds-slave-0
+    load-balance-algorithm-type: round_robin
+    props:
+      sql.show: true
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.lee.testar.model
+
+zookeeper:
+  serverlists: 127.0.0.1:2181
+  elasticjob:
+    namespace: elasticjob/testar

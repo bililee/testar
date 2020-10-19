@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.testar.mapper.TidMapper">
+
+    <resultMap id="BaseResultMap" type="com.lee.testar.model.TidDO">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+    </resultMap>
+
+    <select id="selectByid" resultType="com.lee.testar.model.TidDO">
+        select * from tid where id = #{id}
+    </select>
+
+</mapper>
